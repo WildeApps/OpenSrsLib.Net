@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\OpsObjectCollection.cs" />
-    <Compile Include="Commands\OpsObjectHelper.cs" />
+    <Compile Include="Helpers\OpsObjectHelper.cs" />
     <Compile Include="Commands\ResponseBase.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\ContactSet.cs" />

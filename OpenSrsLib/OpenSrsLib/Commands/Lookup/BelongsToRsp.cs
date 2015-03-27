@@ -11,5 +11,10 @@ namespace OpenSrsLib.Commands.Lookup
     {
         public bool BelongsToRsp { get; set; }
         public DateTime? DomainExpiryDate { get; set; }
+
+        public BelongsToRspResponse(OPS_envelope response)
+        {
+            //TODO - set the mapping from Ops_Envelope to command response in the command response class
+        }
     }
 }
