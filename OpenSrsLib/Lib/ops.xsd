@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://tempuri.org/ops" elementFormDefault="qualified" targetNamespace="http://tempuri.org/ops" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="OPS_envelope">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="header" />
+        <xs:element ref="body" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="header">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="version" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="body">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="data_block" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="data_block">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="dt_assoc" />
+        <xs:element ref="dt_array" />
+        <xs:element ref="dt_scalar" />
+        <xs:element ref="dt_scalarref" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dt_assoc">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="dt_assoc" />
+        <xs:element ref="dt_array" />
+        <xs:element ref="dt_scalar" />
+        <xs:element ref="dt_scalarref" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="item" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dt_array">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="dt_assoc" />
+        <xs:element ref="dt_array" />
+        <xs:element ref="dt_scalar" />
+        <xs:element ref="dt_scalarref" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="item" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dt_scalar">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="dt_assoc" />
+        <xs:element ref="dt_array" />
+        <xs:element ref="dt_scalar" />
+        <xs:element ref="dt_scalarref" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dt_scalarref">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="dt_assoc" />
+        <xs:element ref="dt_array" />
+        <xs:element ref="dt_scalar" />
+        <xs:element ref="dt_scalarref" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="item">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="dt_assoc" />
+        <xs:element ref="dt_array" />
+        <xs:element ref="dt_scalar" />
+        <xs:element ref="dt_scalarref" />
+      </xs:choice>
+      <xs:attribute name="key" type="xs:string" use="required" />
+      <xs:attribute name="class" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="version" type="xs:string" />
+</xs:schema>
