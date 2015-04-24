@@ -24,6 +24,8 @@ namespace Tests
         [TestFixtureTearDown]
         public void FixtureTearDown() { }
 
+        #region BelongsToRspRequest
+
         [Test]
         public void BelongsToRspRequest()
         {
@@ -89,5 +91,58 @@ namespace Tests
             Assert.False(response.BelongsToRsp);
             Assert.IsNull(response.DomainExpiryDate);
         }
+
+        #endregion
+
+        #region GetBalance
+
+        [Test]
+        public void GetBalanceRequest()
+        {
+            string expected = File.ReadAllText(@"TestData\GetBalance\GetBalanceRequestCommand1.xml");
+            var command = new GetBalanceRequest();
+            command.BuildOpsEnvelope("version", "registrantIp");
+            var xml = command.RequestXml();
+
+            Assert.AreEqual(expected, xml);
+        }
+
+        [Test]
+        public void GetBalanceResponse()
+        {
+            var responseXml = File.ReadAllText(@"TestData\GetBalance\GetBalanceResponseReply1.xml");
+
+            var response = new GetBalanceResponse(responseXml);
+
+            Assert.AreEqual("XCP", response.Protocol);
+            Assert.AreEqual("REPLY", response.Action);
+            Assert.AreEqual("BALANCE", response.Object);
+            Assert.AreEqual("Command successful", response.ResponseText);
+            Assert.True(response.IsSuccess);
+            Assert.AreEqual(200, response.ResponseCode);
+
+            Assert.AreEqual(8549.18, response.Balance);
+            Assert.AreEqual(1676.05, response.HoldBalance);
+        }
+
+        [Test]
+        public void GetBalanceResponse_Error()
+        {
+            var responseXml = File.ReadAllText(@"TestData\GetBalance\GetBalanceResponseReply2.xml");
+
+            var response = new GetBalanceResponse(responseXml);
+
+            Assert.AreEqual("XCP", response.Protocol);
+            Assert.AreEqual("REPLY", response.Action);
+            Assert.AreEqual("BALANCE", response.Object);
+            Assert.AreEqual("An error occurred", response.ResponseText);
+            Assert.False(response.IsSuccess);
+            Assert.AreEqual(500, response.ResponseCode);
+
+            Assert.AreEqual(0, response.Balance);
+            Assert.AreEqual(0, response.HoldBalance);
+        }
+
+        #endregion
     }
 }
