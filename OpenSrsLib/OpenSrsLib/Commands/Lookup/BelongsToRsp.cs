@@ -21,10 +21,13 @@ namespace OpenSrsLib.Commands.Lookup
 
         public BelongsToRspResponse(string responseXml) : base(responseXml)
         {
-            BelongsToRsp = OpsObjectHelper.SrsBoolToNetBool(OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "belongs_to_rsp").Text);
-            var domainExpiryNode = OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "domain_expdate");
-            if(domainExpiryNode != null)
-                DomainExpiryDate = OpsObjectHelper.ConvertToNullableDateTime(domainExpiryNode.Text);
+            if (IsSuccess)
+            {
+                BelongsToRsp = OpsObjectHelper.SrsBoolToNetBool(OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "belongs_to_rsp").Text);
+                var domainExpiryNode = OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "domain_expdate");
+                if (domainExpiryNode != null)
+                    DomainExpiryDate = OpsObjectHelper.ConvertToNullableDateTime(domainExpiryNode.Text);
+            }
         }
     }
 }
