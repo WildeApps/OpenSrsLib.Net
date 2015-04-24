@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using OpenSrsLib.Commands;
 
 namespace OpenSrsLib.Helpers
@@ -63,6 +65,18 @@ namespace OpenSrsLib.Helpers
         }
 
         /// <summary>
+        /// Returns an item from a response stored in the dt_assoc array with the specified key
+        /// </summary>
+        public static item GetResponseDataBlockItem(OPS_envelope response, string key)
+        {
+            var responseBodyArray = (dt_assoc)response.body.data_block.Item;
+            if (responseBodyArray == null)
+                return null;
+
+            return GetItemFromArray(responseBodyArray, key);
+        }
+
+        /// <summary>
         /// Returns an item from a response stored in the attributes dt_assoc array with the specified key
         /// </summary>
         public static item GetResponseAttributeItem(OPS_envelope response, string key)
@@ -76,6 +90,39 @@ namespace OpenSrsLib.Helpers
             var responseAttributesArray = (dt_assoc)attributes.Item;
 
             return GetItemFromArray(responseAttributesArray, key);
+        }
+
+        public static string NetBoolToSrsBool(bool b)
+        {
+            return b ? "1" : "0";
+        }
+
+        public static bool SrsBoolToNetBool(string s)
+        {
+            if (s == "1" || s == "Y")
+            {
+                return true;
+            }
+
+            if (s == "0" || s == "N")
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        public static DateTime? ConvertToNullableDateTime(string dateString)
+        {
+            if (!string.IsNullOrEmpty(dateString))
+            {
+                DateTime dateTime;
+                if (DateTime.TryParseExact(dateString, "yyyy-MM-dd HH:mm:ss", null, DateTimeStyles.None, out dateTime))
+                {
+                    return dateTime;
+                }
+            }
+            return null;
         }
 
         /// <summary>

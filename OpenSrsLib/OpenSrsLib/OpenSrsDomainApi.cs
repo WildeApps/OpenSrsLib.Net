@@ -32,28 +32,14 @@ namespace OpenSrsLib
 
         public BelongsToRspResponse BelongsToRsp(BelongsToRspRequest request)
         {
-            OpsObjectCollection opsObjects = OpsObjectHelper.BuildOpsEnvelope(_version, "SW_REGISTER", "DOMAIN", _registrantIp);
+            request.BuildOpsEnvelope(_version, _registrantIp);
 
-            opsObjects.AttributesArray.Items.Add(new item("domain", request.Domain));
-
-            return new BelongsToRspResponse(SendRequest(opsObjects.OpsRequest));
+            return new BelongsToRspResponse(SendRequest(request.RequestXml()));
         }
 
-        public OPS_envelope SendRequest(OPS_envelope request)
+        public string SendRequest(string requestXml)
         {
-            string requestXml = string.Empty, responseXml = string.Empty;
-            using (var ms = new MemoryStream())
-            {
-                var serializer = new XmlSerializer(typeof(OPS_envelope));
-
-                var ns = new XmlSerializerNamespaces();
-                ns.Add("", "");
-
-                serializer.Serialize(ms, request, ns);
-
-                requestXml = Encoding.ASCII.GetString(ms.GetBuffer());
-                requestXml = requestXml.Insert(requestXml.IndexOf(Environment.NewLine) + 1, "<!DOCTYPE OPS_envelope SYSTEM \"ops.dtd\">");
-            }
+            string responseXml = string.Empty;
 
             var webRequest = new WebClient();
             webRequest.Encoding = Encoding.UTF8;
@@ -81,9 +67,7 @@ namespace OpenSrsLib
                 attempts++;
             }
 
-            var opsResult = SerializationHelper.Deserialize<OPS_envelope>(responseXml);
-
-            return opsResult;
+            return responseXml;
         }
 
         /// <summary>
