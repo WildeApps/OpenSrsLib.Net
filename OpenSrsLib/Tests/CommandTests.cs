@@ -27,7 +27,7 @@ namespace Tests
         [Test]
         public void BelongsToRspRequest()
         {
-            string expected = File.ReadAllText(@"TestData\BelongsToRspRequestCommand1.xml");
+            string expected = File.ReadAllText(@"TestData\BelongsToRsp\BelongsToRspRequestCommand1.xml");
             var command = new BelongsToRspRequest();
             command.Domain = "domain.com";
             command.BuildOpsEnvelope("version", "registrantIp");
@@ -39,7 +39,7 @@ namespace Tests
         [Test]
         public void BelongsToRspResponse_DoesBelong()
         {
-            var responseXml = File.ReadAllText(@"TestData\BelongsToRspResponseReply1.xml");
+            var responseXml = File.ReadAllText(@"TestData\BelongsToRsp\BelongsToRspResponseReply1.xml");
             
             var response = new BelongsToRspResponse(responseXml);
             
@@ -57,7 +57,7 @@ namespace Tests
         [Test]
         public void BelongsToRspResponse_DoesNotBelong()
         {
-            var responseXml = File.ReadAllText(@"TestData\BelongsToRspResponseReply2.xml");
+            var responseXml = File.ReadAllText(@"TestData\BelongsToRsp\BelongsToRspResponseReply2.xml");
 
             var response = new BelongsToRspResponse(responseXml);
 
@@ -75,7 +75,7 @@ namespace Tests
         [Test]
         public void BelongsToRspResponse_Error()
         {
-            var responseXml = File.ReadAllText(@"TestData\BelongsToRspResponseReply3.xml");
+            var responseXml = File.ReadAllText(@"TestData\BelongsToRsp\BelongsToRspResponseReply3.xml");
 
             var response = new BelongsToRspResponse(responseXml);
 

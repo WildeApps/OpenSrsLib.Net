@@ -58,17 +58,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\BelongsToRspRequestCommand1.xml">
+    <Content Include="TestData\BelongsToRsp\BelongsToRspRequestCommand1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="TestData\BelongsToRspResponseReply1.xml">
+    <Content Include="TestData\BelongsToRsp\BelongsToRspResponseReply1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\BelongsToRspResponseReply3.xml">
+    <Content Include="TestData\BelongsToRsp\BelongsToRspResponseReply3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\BelongsToRspResponseReply2.xml">
+    <Content Include="TestData\BelongsToRsp\BelongsToRspResponseReply2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
