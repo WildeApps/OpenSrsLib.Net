@@ -37,6 +37,20 @@ namespace OpenSrsLib
             return new BelongsToRspResponse(SendRequest(request.RequestXml()));
         }
 
+        public GetBalanceResponse GetBalance(GetBalanceRequest request)
+        {
+            request.BuildOpsEnvelope(_version, _registrantIp);
+
+            return new GetBalanceResponse(SendRequest(request.RequestXml()));
+        }
+
+        public GetDeletedDomainsResponse GetDeletedDomains(GetDeletedDomainsRequest request)
+        {
+            request.BuildOpsEnvelope(_version, _registrantIp);
+
+            return new GetDeletedDomainsResponse(SendRequest(request.RequestXml()));
+        }
+
         public string SendRequest(string requestXml)
         {
             string responseXml = string.Empty;
