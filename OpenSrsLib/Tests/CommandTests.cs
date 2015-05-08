@@ -144,5 +144,71 @@ namespace Tests
         }
 
         #endregion
+
+        #region GetDeletedDomains
+
+        [Test]
+        public void GetDeletedDomainsRequest()
+        {
+            string expected = File.ReadAllText(@"TestData\GetDeletedDomains\GetDeletedDomainsRequestCommand1.xml");
+            var command = new GetDeletedDomainsRequest
+            {
+                AdminEmail = "*",
+                BillingEmail = "*",
+                DeleteFrom = new DateTime(2000, 10, 10),
+                DeleteTo = new DateTime(2011, 10, 10),
+                ExpiresFrom = new DateTime(2002, 10, 10),
+                ExpiresTo = new DateTime(2014, 10, 10),
+                OwnerEmail = "*", 
+                Limit = 10, 
+                Page = 1, 
+                TechEmail = "*"
+            };
+            command.BuildOpsEnvelope("version", "registrantIp");
+            var xml = command.RequestXml();
+
+            Assert.AreEqual(expected, xml);
+        }
+
+        [Test]
+        public void GetDeletedDomainsResponse()
+        {
+            var responseXml = File.ReadAllText(@"TestData\GetDeletedDomains\GetDeletedDomainsResponseReply1.xml");
+
+            var response = new GetDeletedDomainsResponse(responseXml);
+
+            Assert.AreEqual("XCP", response.Protocol);
+            Assert.AreEqual("REPLY", response.Action);
+            Assert.AreEqual("DOMAIN", response.Object);
+            Assert.AreEqual("Command successful", response.ResponseText);
+            Assert.True(response.IsSuccess);
+            Assert.AreEqual(200, response.ResponseCode);
+
+            Assert.IsNotNull(response.DeletedDomains);
+            Assert.AreEqual(2, response.DeletedDomains.Count);
+            Assert.AreEqual("pure-1102905253608.com", response.DeletedDomains.First().Name);
+            Assert.AreEqual("By-Request", response.DeletedDomains.First().Reason);
+            Assert.AreEqual("pure-1102905358159.net", response.DeletedDomains.Last().Name);
+            Assert.AreEqual("By-Request", response.DeletedDomains.Last().Reason);
+        }
+
+        [Test]
+        public void GetDeletedDomainsResponse_Error()
+        {
+            var responseXml = File.ReadAllText(@"TestData\GetDeletedDomains\GetDeletedDomainsResponseReply2.xml");
+
+            var response = new GetDeletedDomainsResponse(responseXml);
+
+            Assert.AreEqual("XCP", response.Protocol);
+            Assert.AreEqual("REPLY", response.Action);
+            Assert.AreEqual("DOMAIN", response.Object);
+            Assert.AreEqual("An error occurred", response.ResponseText);
+            Assert.False(response.IsSuccess);
+            Assert.AreEqual(500, response.ResponseCode);
+
+            Assert.IsNull(response.DeletedDomains);
+        }
+
+        #endregion
     }
 }

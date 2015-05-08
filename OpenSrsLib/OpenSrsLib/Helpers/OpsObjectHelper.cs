@@ -124,6 +124,18 @@ namespace OpenSrsLib.Helpers
             }
             return null;
         }
+        public static DateTime ConvertToDateTime(string dateString)
+        {
+            DateTime dateTime = new DateTime();
+            if (!string.IsNullOrEmpty(dateString))
+            {
+                if (DateTime.TryParseExact(dateString, "yyyy-MM-dd HH:mm:ss", null, DateTimeStyles.None, out dateTime))
+                {
+                    return dateTime;
+                }
+            }
+            return dateTime;
+        }
 
         /// <summary>
         /// Builds the standard message header
