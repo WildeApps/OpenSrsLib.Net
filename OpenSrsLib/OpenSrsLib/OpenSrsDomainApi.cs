@@ -51,7 +51,7 @@ namespace OpenSrsLib
             return new GetDeletedDomainsResponse(SendRequest(request.RequestXml()));
         }
 
-        public string SendRequest(string requestXml)
+        private string SendRequest(string requestXml)
         {
             string responseXml = string.Empty;
 

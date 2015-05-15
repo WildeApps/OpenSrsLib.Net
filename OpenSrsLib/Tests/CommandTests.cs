@@ -31,7 +31,7 @@ namespace Tests
         {
             string expected = File.ReadAllText(@"TestData\BelongsToRsp\BelongsToRspRequestCommand1.xml");
             var command = new BelongsToRspRequest();
-            command.Domain = "domain.com";
+            command.domain = "domain.com";
             command.BuildOpsEnvelope("version", "registrantIp");
             var xml = command.RequestXml();
 
@@ -52,8 +52,8 @@ namespace Tests
             Assert.True(response.IsSuccess);
             Assert.AreEqual(200, response.ResponseCode);
 
-            Assert.True(response.BelongsToRsp);
-            Assert.AreEqual(new DateTime(2007, 8, 26, 11, 40, 14), response.DomainExpiryDate);
+            Assert.True(response.belongs_to_rsp);
+            Assert.AreEqual(new DateTime(2007, 8, 26, 11, 40, 14), response.domain_expdate);
         }
 
         [Test]
@@ -70,8 +70,8 @@ namespace Tests
             Assert.True(response.IsSuccess);
             Assert.AreEqual(200, response.ResponseCode);
 
-            Assert.False(response.BelongsToRsp);
-            Assert.IsNull(response.DomainExpiryDate);
+            Assert.False(response.belongs_to_rsp);
+            Assert.IsNull(response.domain_expdate);
         }
 
         [Test]
@@ -88,8 +88,8 @@ namespace Tests
             Assert.False(response.IsSuccess);
             Assert.AreEqual(500, response.ResponseCode);
 
-            Assert.False(response.BelongsToRsp);
-            Assert.IsNull(response.DomainExpiryDate);
+            Assert.False(response.belongs_to_rsp);
+            Assert.IsNull(response.domain_expdate);
         }
 
         #endregion
@@ -121,8 +121,8 @@ namespace Tests
             Assert.True(response.IsSuccess);
             Assert.AreEqual(200, response.ResponseCode);
 
-            Assert.AreEqual(8549.18, response.Balance);
-            Assert.AreEqual(1676.05, response.HoldBalance);
+            Assert.AreEqual(8549.18, response.balance);
+            Assert.AreEqual(1676.05, response.hold_balance);
         }
 
         [Test]
@@ -139,8 +139,8 @@ namespace Tests
             Assert.False(response.IsSuccess);
             Assert.AreEqual(500, response.ResponseCode);
 
-            Assert.AreEqual(0, response.Balance);
-            Assert.AreEqual(0, response.HoldBalance);
+            Assert.AreEqual(0, response.balance);
+            Assert.AreEqual(0, response.hold_balance);
         }
 
         #endregion
@@ -153,16 +153,16 @@ namespace Tests
             string expected = File.ReadAllText(@"TestData\GetDeletedDomains\GetDeletedDomainsRequestCommand1.xml");
             var command = new GetDeletedDomainsRequest
             {
-                AdminEmail = "*",
-                BillingEmail = "*",
-                DeleteFrom = new DateTime(2000, 10, 10),
-                DeleteTo = new DateTime(2011, 10, 10),
-                ExpiresFrom = new DateTime(2002, 10, 10),
-                ExpiresTo = new DateTime(2014, 10, 10),
-                OwnerEmail = "*", 
-                Limit = 10, 
-                Page = 1, 
-                TechEmail = "*"
+                admin_email = "*",
+                billing_email = "*",
+                del_from = new DateTime(2000, 10, 10),
+                del_to = new DateTime(2011, 10, 10),
+                exp_from = new DateTime(2002, 10, 10),
+                exp_to = new DateTime(2014, 10, 10),
+                owner_email = "*", 
+                limit = 10, 
+                page = 1, 
+                tech_email = "*"
             };
             command.BuildOpsEnvelope("version", "registrantIp");
             var xml = command.RequestXml();
@@ -184,12 +184,12 @@ namespace Tests
             Assert.True(response.IsSuccess);
             Assert.AreEqual(200, response.ResponseCode);
 
-            Assert.IsNotNull(response.DeletedDomains);
-            Assert.AreEqual(2, response.DeletedDomains.Count);
-            Assert.AreEqual("pure-1102905253608.com", response.DeletedDomains.First().Name);
-            Assert.AreEqual("By-Request", response.DeletedDomains.First().Reason);
-            Assert.AreEqual("pure-1102905358159.net", response.DeletedDomains.Last().Name);
-            Assert.AreEqual("By-Request", response.DeletedDomains.Last().Reason);
+            Assert.IsNotNull(response.del_domains);
+            Assert.AreEqual(2, response.del_domains.Count);
+            Assert.AreEqual("pure-1102905253608.com", response.del_domains.First().name);
+            Assert.AreEqual("By-Request", response.del_domains.First().reason);
+            Assert.AreEqual("pure-1102905358159.net", response.del_domains.Last().name);
+            Assert.AreEqual("By-Request", response.del_domains.Last().reason);
         }
 
         [Test]
@@ -206,7 +206,7 @@ namespace Tests
             Assert.False(response.IsSuccess);
             Assert.AreEqual(500, response.ResponseCode);
 
-            Assert.IsNull(response.DeletedDomains);
+            Assert.IsNull(response.del_domains);
         }
 
         #endregion

@@ -17,15 +17,15 @@ namespace OpenSrsLib.Commands.Lookup
 
     public class GetBalanceResponse : ResponseBase
     {
-        public double Balance { get; set; }
-        public double HoldBalance { get; set; }
+        public double balance { get; set; }
+        public double hold_balance { get; set; }
 
         public GetBalanceResponse(string xml) : base(xml)
         {
             if (IsSuccess)
             {
-                Balance = Convert.ToDouble(OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "balance").Text);
-                HoldBalance = Convert.ToDouble(OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "hold_balance").Text);
+                balance = Convert.ToDouble(OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "balance").Text);
+                hold_balance = Convert.ToDouble(OpsObjectHelper.GetResponseAttributeItem(ResponseEnvelope, "hold_balance").Text);
             }
         }
     }

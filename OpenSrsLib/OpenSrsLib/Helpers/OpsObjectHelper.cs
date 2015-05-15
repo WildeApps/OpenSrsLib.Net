@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using OpenSrsLib.Commands;
+using OpenSrsLib.Entities;
 
 namespace OpenSrsLib.Helpers
 {
@@ -92,11 +93,21 @@ namespace OpenSrsLib.Helpers
             return GetItemFromArray(responseAttributesArray, key);
         }
 
+        /// <summary>
+        /// Converts a .net bool to an OpenSrs bool
+        /// </summary>
+        /// <param name="b">The bool to convert</param>
+        /// <returns>bool converted to a string</returns>
         public static string NetBoolToSrsBool(bool b)
         {
             return b ? "1" : "0";
         }
 
+        /// <summary>
+        /// Converts an OpenSrs bool to a .net bool
+        /// </summary>
+        /// <param name="s">Bool string to convert</param>
+        /// <returns>The converted bool</returns>
         public static bool SrsBoolToNetBool(string s)
         {
             if (s == "1" || s == "Y")
@@ -112,6 +123,11 @@ namespace OpenSrsLib.Helpers
             return false;
         }
 
+        /// <summary>
+        /// Converts a date string to a nullable DateTime
+        /// </summary>
+        /// <param name="dateString">The string to convert</param>
+        /// <returns>The nullable DateTime</returns>
         public static DateTime? ConvertToNullableDateTime(string dateString)
         {
             if (!string.IsNullOrEmpty(dateString))
@@ -124,6 +140,12 @@ namespace OpenSrsLib.Helpers
             }
             return null;
         }
+
+        /// <summary>
+        /// Converts a date string to a DateTime
+        /// </summary>
+        /// <param name="dateString">The string to convert</param>
+        /// <returns>The DateTime</returns>
         public static DateTime ConvertToDateTime(string dateString)
         {
             DateTime dateTime = new DateTime();

@@ -42,8 +42,11 @@
   <ItemGroup>
     <Compile Include="Commands\Lookup\GetBalance.cs" />
     <Compile Include="Commands\Lookup\GetDeletedDomains.cs" />
+    <Compile Include="Commands\Lookup\GetDomainAllInfo.cs" />
     <Compile Include="Commands\OpsObjectCollection.cs" />
     <Compile Include="Commands\RequestBase.cs" />
+    <Compile Include="Entities\Nameserver.cs" />
+    <Compile Include="Entities\TldData.cs" />
     <Compile Include="Helpers\OpsObjectHelper.cs" />
     <Compile Include="Commands\ResponseBase.cs" />
     <Compile Include="Entities\Contact.cs" />
