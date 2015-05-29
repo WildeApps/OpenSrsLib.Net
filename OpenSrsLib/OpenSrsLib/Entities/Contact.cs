@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSrsLib.Helpers;
+﻿using OpenSrsLib.Helpers;
 
 namespace OpenSrsLib.Entities
 {
@@ -25,6 +20,11 @@ namespace OpenSrsLib.Entities
         public string email { get; set; }
         public string lang { get; set; }
         public string vat { get; set; }
+
+        public Contact()
+        {
+            
+        }
 
         public Contact(item contactItem)
         {

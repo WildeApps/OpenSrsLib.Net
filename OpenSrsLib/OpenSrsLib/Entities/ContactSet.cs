@@ -14,6 +14,11 @@ namespace OpenSrsLib.Entities
         public Contact billing { get; set; }
         public Contact tech { get; set; }
 
+        public ContactSet()
+        {
+            
+        }
+
         public ContactSet(OPS_envelope response)
         {
             var contacts = (dt_assoc)OpsObjectHelper.GetResponseAttributeItem(response, "contact_set").Item;
